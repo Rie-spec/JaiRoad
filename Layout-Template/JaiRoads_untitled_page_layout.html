@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MaintainMap - Untitled Page Layout</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="JaiRoads_untitled_page_layout.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <div class="page-layout">
+
+        <!-- ============================= -->
+        <!-- SIDEBAR START -->
+        <!-- ============================= -->
+        <aside class="sidebar">
+            <div class="sidebar-top">
+
+                <div class="brand-row">
+                    <div class="brand-icon-box">
+                        <i data-lucide="navigation"></i>
+                    </div>
+                    <h1 class="brand-name">MaintainMap</h1>
+                </div>
+
+                <div class="search-box">
+                    <i class="search-icon" data-lucide="search"></i>
+                    <input type="text" placeholder="Search projects...">
+                </div>
+
+                <p class="sidebar-label">Infrastructure Hub</p>
+
+                <nav class="sidebar-nav">
+                    <a href="#" class="nav-item">
+                        <i data-lucide="layout-dashboard"></i>
+                        <span>Dashboard</span>
+                    </a>
+
+                    <a href="#" class="nav-item active">
+                        <i data-lucide="wrench"></i>
+                        <span>Maintenance Projects</span>
+                    </a>
+
+                    <a href="#" class="nav-item">
+                        <i data-lucide="calendar"></i>
+                        <span>Weekly Updates</span>
+                    </a>
+
+                    <a href="#" class="nav-item">
+                        <i data-lucide="file-text"></i>
+                        <span>Project Documents</span>
+                    </a>
+
+                    <a href="#" class="nav-item">
+                        <i data-lucide="map"></i>
+                        <span>Roads</span>
+                    </a>
+
+                    <a href="#" class="nav-item">
+                        <i data-lucide="users"></i>
+                        <span>Engineers</span>
+                    </a>
+
+                    <a href="#" class="nav-item">
+                        <i data-lucide="building-2"></i>
+                        <span>LGUs</span>
+                    </a>
+
+                    <a href="#" class="nav-item">
+                        <i data-lucide="user-circle"></i>
+                        <span>Account</span>
+                    </a>
+                </nav>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="profile-card">
+                    <div class="profile-avatar">JD</div>
+                    <div class="profile-text">
+                        <p class="profile-name">Juan Dela Cruz</p>
+                        <p class="profile-role">Engineer</p>
+                    </div>
+                </div>
+
+                <button class="logout-btn" type="button">
+                    <i data-lucide="log-out"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+        <!-- ============================= -->
+        <!-- SIDEBAR END -->
+        <!-- ============================= -->
+
+
+        <!-- ============================= -->
+        <!-- MAIN CONTENT START -->
+        <!-- ============================= -->
+        <main class="main-content">
+
+            <!-- PAGE HEADER START -->
+            <section class="page-heading-row">
+                <div class="page-heading-text">
+                    <h2 class="page-main-title">Untitled</h2>
+                    <p class="page-subtitle">Manage infrastructure assets</p>
+                </div>
+
+                <button class="primary-btn" type="button">
+                    <i data-lucide="plus"></i>
+                    <span>Add Maintenance Project</span>
+                </button>
+            </section>
+            <!-- PAGE HEADER END -->
+
+            <!-- FILTER BAR START -->
+            <section class="filter-shell">
+                <div class="filter-search">
+                    <i class="filter-search-icon" data-lucide="search"></i>
+                    <input type="text" placeholder="Search by project title or road name...">
+                </div>
+
+                <div class="filter-actions">
+                    <button class="filter-btn" type="button">
+                        <i data-lucide="map-pin"></i>
+                        <span>All Municipalities</span>
+                        <i data-lucide="chevron-down" class="filter-arrow"></i>
+                    </button>
+
+                    <button class="filter-btn" type="button">
+                        <i data-lucide="activity"></i>
+                        <span>Project Status</span>
+                        <i data-lucide="chevron-down" class="filter-arrow"></i>
+                    </button>
+
+                    <button class="filter-btn" type="button">
+                        <i data-lucide="users"></i>
+                        <span>Assigned Engineer</span>
+                        <i data-lucide="chevron-down" class="filter-arrow"></i>
+                    </button>
+
+                    <button class="refresh-btn" type="button" aria-label="Refresh">
+                        <i data-lucide="rotate-cw"></i>
+                    </button>
+                </div>
+            </section>
+            <!-- FILTER BAR END -->
+
+            <!-- RECORDS AREA START -->
+            <section class="records-shell">
+                <div class="records-head">
+                    <div class="head-col">Project Title</div>
+                    <div class="head-col">Road Name</div>
+                    <div class="head-col">Municipality</div>
+                    <div class="head-col">Status</div>
+                    <div class="head-col">Engineer</div>
+                    <div class="head-col">Timeline</div>
+                    <div class="head-col actions-col">Actions</div>
+                </div>
+
+                <div class="records-body">
+                    <div class="records-placeholder">
+                        Place your records here.
+                    </div>
+                </div>
+
+                <div class="records-footer">
+                    <p class="records-note">Showing 1-10 of 68 projects</p>
+
+                    <div class="pagination">
+                        <button class="page-btn" type="button"><i data-lucide="chevron-left"></i></button>
+                        <button class="page-btn active" type="button">1</button>
+                        <button class="page-btn" type="button">2</button>
+                        <button class="page-btn" type="button">3</button>
+                        <span class="page-dots">...</span>
+                        <button class="page-btn" type="button">7</button>
+                        <button class="page-btn" type="button"><i data-lucide="chevron-right"></i></button>
+                    </div>
+                </div>
+            </section>
+            <!-- RECORDS AREA END -->
+
+        </main>
+        <!-- ============================= -->
+        <!-- MAIN CONTENT END -->
+        <!-- ============================= -->
+
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
