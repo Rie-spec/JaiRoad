@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JAIROADS Dashboard Shell</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="PageLayout.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+
+        /* ============================= */
+/* TOP HEADER */
+/* Use before version alignment
+/* Keep new button text + dropdown arrow
+/* ============================= */
+.topbar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    padding-bottom: 8px;
+    background: rgba(240, 242, 245, 0.88);
+    backdrop-filter: blur(12px);
+}
+
+.stats-bar {
+    flex: 1;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 24px;
+    min-height: 54px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    box-shadow: 0 10px 20px rgba(148, 163, 184, 0.15);
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.stat-icon {
+    width: 26px;
+    height: 26px;
+    border-radius: 10px;
+    background-color: #f8fafc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-icon svg {
+    width: 14px;
+    height: 14px;
+}
+
+.stat-icon.blue { color: #3b82f6; }
+.stat-icon.green { color: #10b981; }
+.stat-icon.indigo { color: #6366f1; }
+.stat-icon.orange { color: #f97316; }
+
+.stat-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-label {
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #cbd5e1;
+    line-height: 1;
+    margin-bottom: 3px;
+}
+
+.stat-value {
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1;
+    color: #334155;
+}
+
+.stat-divider {
+    width: 1px;
+    height: 18px;
+    background-color: #e2e8f0;
+}
+
+.icon-btn {
+    width: 54px;
+    height: 54px;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    background-color: #ffffff;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.2s ease;
+    box-shadow: 0 10px 20px rgba(148, 163, 184, 0.15);
+    flex-shrink: 0;
+}
+
+.icon-btn:hover {
+    color: #5d5fef;
+}
+
+.icon-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.primary-btn {
+    height: 54px;
+    padding: 0 22px;
+    border: none;
+    border-radius: 18px;
+    background-color: #5d5fef;
+    color: #ffffff;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: 0.2s ease;
+    box-shadow: 0 16px 30px rgba(93, 95, 239, 0.22);
+    flex-shrink: 0;
+}
+
+.primary-btn:hover {
+    background-color: #4b4dcc;
+}
+
+.primary-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.primary-btn .btn-arrow {
+    width: 16px;
+    height: 16px;
+    opacity: 0.5;
+}
+        .dashboard-body {
+            padding: 0 16px 24px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .dashboard-map-shell {
+            background: #ffffff;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+        }
+
+        .dashboard-map-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 18px 22px;
+            border-bottom: 1px solid #e2e8f0;
+            background: rgba(255, 255, 255, 0.92);
+        }
+
+        .dashboard-map-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .dashboard-map-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 12px;
+            background: #eef2ff;
+            color: #5d5fef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .dashboard-map-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .dashboard-map-title h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .dashboard-map-filters {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .map-filter {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            height: 40px;
+            padding: 0 14px;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            background: #ffffff;
+            color: #64748b;
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .map-filter svg {
+            width: 16px;
+            height: 16px;
+            color: #94a3b8;
+            flex-shrink: 0;
+        }
+
+        .dashboard-map-area {
+            position: relative;
+            min-height: 420px;
+            background-color: #e5e9f0;
+            background-image:
+                linear-gradient(rgba(148, 163, 184, 0.10) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(148, 163, 184, 0.10) 1px, transparent 1px);
+            background-size: 38px 38px;
+        }
+
+        .leaflet-map-placeholder {
+            width: 100%;
+            height: 420px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .map-legend {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 12px 18px;
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            border-radius: 999px;
+            box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #64748b;
+        }
+
+        .legend-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .legend-dot.green { background: #10b981; }
+        .legend-dot.indigo { background: #6366f1; }
+        .legend-dot.orange { background: #fb923c; }
+
+        .map-tools {
+            position: absolute;
+            left: 22px;
+            bottom: 22px;
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+        }
+
+        .map-tool-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 18px;
+            background: #ffffff;
+            border: none;
+            color: #94a3b8;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            cursor: pointer;
+        }
+
+        .map-tool-btn + .map-tool-btn {
+            border-left: 1px solid #e2e8f0;
+        }
+
+        .map-tool-btn svg {
+            width: 15px;
+            height: 15px;
+        }
+
+        .dashboard-bottom-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .dashboard-card {
+            background: #ffffff;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            border-radius: 36px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+            min-height: 260px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dashboard-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 26px 28px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .dashboard-card-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        .dashboard-card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #5d5fef;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+        }
+
+        .dashboard-card-link svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .dashboard-card-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 28px;
+            color: #64748b;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        @media (max-width: 1200px) {
+            .dashboard-bottom-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .dashboard-map-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .dashboard-map-filters {
+                justify-content: flex-start;
+            }
+
+            .map-legend {
+                position: static;
+                margin: 16px;
+                width: fit-content;
+            }
+
+            .map-tools {
+                position: static;
+                margin: 0 16px 16px 16px;
+                width: fit-content;
+            }
+
+            .dashboard-map-area {
+                min-height: 360px;
+            }
+
+            .leaflet-map-placeholder {
+                height: 360px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-layout">
+
+        <aside class="sidebar">
+            <div class="sidebar-top">
+                <div class="brand-row">
+                    <div class="brand-icon-box">
+                        <i data-lucide="navigation"></i>
+                    </div>
+                    <h1 class="brand-name">JAIROADS</h1>
+                </div>
+
+                <div class="search-box">
+                    <i class="search-icon" data-lucide="search"></i>
+                    <input type="text" placeholder="Search projects...">
+                </div>
+
+                <p class="sidebar-label">Infrastructure Hub</p>
+
+                <nav class="sidebar-nav">
+                    <a href="Dashboard.html" class="nav-item active">
+                        <i data-lucide="layout-dashboard"></i>
+                        <span>Dashboard</span>
+                    </a>
+
+                    <a href="MaintenanceProjects.html" class="nav-item">
+                        <i data-lucide="wrench"></i>
+                        <span>Maintenance Projects</span>
+                    </a>
+
+                    <a href="WeeklyUpdates.html" class="nav-item">
+                        <i data-lucide="calendar"></i>
+                        <span>Weekly Updates</span>
+                    </a>
+
+                    <a href="ProjectDocuments.html" class="nav-item">
+                        <i data-lucide="file-text"></i>
+                        <span>Project Documents</span>
+                    </a>
+
+                    <a href="Roads.html" class="nav-item">
+                        <i data-lucide="map"></i>
+                        <span>Roads</span>
+                    </a>
+
+                    <a href="Engineer.html" class="nav-item">
+                        <i data-lucide="users"></i>
+                        <span>Engineers</span>
+                    </a>
+
+                    <a href="LGU.html" class="nav-item">
+                        <i data-lucide="building-2"></i>
+                        <span>LGUs</span>
+                    </a>
+
+                    <a href="Account.html" class="nav-item">
+                        <i data-lucide="user-circle"></i>
+                        <span>Account</span>
+                    </a>
+                </nav>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="profile-card">
+                    <div class="profile-avatar">JD</div>
+                    <div class="profile-text">
+                        <p class="profile-name">Juan Dela Cruz</p>
+                        <p class="profile-role">Engineer</p>
+                    </div>
+                </div>
+
+                <button class="logout-btn" type="button">
+                    <i data-lucide="log-out"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+
+            <header class="topbar">
+                <div class="stats-bar">
+                    <div class="stat-item">
+                        <div class="stat-icon blue"><i data-lucide="layout-dashboard"></i></div>
+                        <div class="stat-text">
+                            <span class="stat-label">Total Projects</span>
+                            <span class="stat-value">68</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-divider"></div>
+
+                    <div class="stat-item">
+                        <div class="stat-icon green"><i data-lucide="clock"></i></div>
+                        <div class="stat-text">
+                            <span class="stat-label">Ongoing Projects</span>
+                            <span class="stat-value">24</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-divider"></div>
+
+                    <div class="stat-item">
+                        <div class="stat-icon indigo"><i data-lucide="check-circle-2"></i></div>
+                        <div class="stat-text">
+                            <span class="stat-label">Completed Projects</span>
+                            <span class="stat-value">44</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-divider"></div>
+
+                    <div class="stat-item">
+                        <div class="stat-icon orange"><i data-lucide="rotate-ccw"></i></div>
+                        <div class="stat-text">
+                            <span class="stat-label">Recent Updates</span>
+                            <span class="stat-value">12</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="icon-btn" type="button" aria-label="Notifications">
+                    <i data-lucide="bell"></i>
+                </button>
+
+                <button class="primary-btn" type="button">
+                    <i data-lucide="plus"></i>
+                    <span>Add Maintenance Project</span>
+                </button>
+            </header>
+
+            <section class="dashboard-body">
+
+                <section class="dashboard-map-shell">
+                    <div class="dashboard-map-header">
+                        <div class="dashboard-map-title">
+                            <div class="dashboard-map-icon">
+                                <i data-lucide="map"></i>
+                            </div>
+                            <h3>Interactive Map</h3>
+                        </div>
+
+                        <div class="dashboard-map-filters">
+                            <div class="map-filter">
+                                <i data-lucide="map-pin"></i>
+                                <span>All Municipalities</span>
+                                <i data-lucide="chevron-down"></i>
+                            </div>
+
+                            <div class="map-filter">
+                                <i data-lucide="activity"></i>
+                                <span>Project Status</span>
+                                <i data-lucide="chevron-down"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-map-area">
+                        <div class="map-legend">
+                            <div class="legend-item">
+                                <span class="legend-dot green"></span>
+                                <span>Ongoing</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-dot indigo"></span>
+                                <span>Completed</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-dot orange"></span>
+                                <span>Planning</span>
+                            </div>
+                        </div>
+
+                        <div class="leaflet-map-placeholder">
+                            Leaflet map goes here
+                        </div>
+
+                        <div class="map-tools">
+                            <button class="map-tool-btn" type="button">
+                                <i data-lucide="layers"></i>
+                                <span>Layers</span>
+                            </button>
+                            <button class="map-tool-btn" type="button">
+                                <i data-lucide="maximize-2"></i>
+                                <span>Focus</span>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="dashboard-bottom-grid">
+                    <article class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <h3 class="dashboard-card-title">Recent Maintenance Projects</h3>
+                            <a href="#" class="dashboard-card-link">
+                                <span>View All</span>
+                                <i data-lucide="chevron-right"></i>
+                            </a>
+                        </div>
+                        <div class="dashboard-card-content">
+                            Put recent maintenance projects here.
+                        </div>
+                    </article>
+
+                    <article class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <h3 class="dashboard-card-title">Recent Weekly Updates</h3>
+                            <a href="#" class="dashboard-card-link">
+                                <span>Full History</span>
+                                <i data-lucide="chevron-right"></i>
+                            </a>
+                        </div>
+                        <div class="dashboard-card-content">
+                            Put recent weekly updates here.
+                        </div>
+                    </article>
+                </section>
+
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
